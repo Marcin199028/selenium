@@ -14,6 +14,7 @@ public class ReservationTest {
 	public void open() {
 		driver = Init.getDriver();
 	}
+	@Ignore
 	@Test
 	public void loginWithPageObjects() {
 		
