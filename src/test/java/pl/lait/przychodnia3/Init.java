@@ -7,7 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Init {
 	
-	
 	static WebDriver driver = null;
 	
 	public static WebDriver getDriver() {
