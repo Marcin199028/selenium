@@ -48,6 +48,8 @@ public class ReservationTest {
 		
 		Init.sleep(5);
 		
+		Init.printScr(driver);
+		
 	}
 	
 	@After
