@@ -2,6 +2,8 @@ package pl.lait.przychodnia3;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
 
@@ -11,6 +13,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Init {
 	
@@ -22,9 +26,20 @@ public class Init {
 		
 		if(driver == null) {
 			
+			URL hubUrl = null;
+			
+			try {
+				//po uruchomieniu huba i noda (java -jar seleniuserver...) ustawiamy jego adres IP (localhost - nasz komputer, wszystko na tej samej maszynie)
+				hubUrl = new URL("http://172.30.30.8:4444/wd/hub/"); 
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			DesiredCapabilities cap = DesiredCapabilities.firefox();
+			
 			log( "Wewnątrz IFa, FF jest już uruchomiony");
 			
-			driver = new FirefoxDriver();
+			//driver = new FirefoxDriver();
+			driver = new RemoteWebDriver(hubUrl, cap);
 			driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
 			driver.get("http://newtours.demoaut.com");
