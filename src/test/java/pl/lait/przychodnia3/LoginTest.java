@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertTrue;
 import static pl.lait.przychodnia3.Init.getDriver;
+import static pl.lait.przychodnia3.Init.printScr;;
+
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginTest {
@@ -24,7 +26,7 @@ WebDriver driver = null;
 		System.out.println("--test 1");
 		System.out.println(driver.getTitle());
 		assertTrue("Nie odnaleziono strony", driver.getTitle().equals("Welcome: Mercury Tours"));
-		
+		printScr(driver);
 		System.out.println("test clickOnMenuItems");
 		driver.findElement(By.linkText("SIGN-ON")).click();
 		driver.findElement(By.linkText("REGISTER")).click();
