@@ -2,6 +2,8 @@ package pl.lait.przychodnia3;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
 
@@ -11,20 +13,33 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Init {
 	
 	static WebDriver driver = null;
+	
+	static DesiredCapabilities cap = DesiredCapabilities.firefox();
 	
 	public static WebDriver getDriver() {
 		System.setProperty("webdriver.gecko.driver", "/Users/adam/Documents/LAIT/geckodriver");
 		log("Wewnątrz metody getDriver");
 		
 		if(driver == null) {
-			
 			log( "Wewnątrz IFa, FF jest już uruchomiony");
 			
-			driver = new FirefoxDriver();
+			URL seleniumAdress = null;
+			try {
+				seleniumAdress = new URL("http://192.168.0.116:4444/wd/hub");
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//driver = new FirefoxDriver();
+			driver = new RemoteWebDriver(seleniumAdress, cap);
+			
 			driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
 			driver.get("http://newtours.demoaut.com");
